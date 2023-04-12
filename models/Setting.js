@@ -1,12 +1,6 @@
 const mongoose = require('mongoose')
 
 const SettingScheme = new mongoose.Schema({
-	userId: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-		required: true,
-	},
-
 	avatarToggler: {
 		type: Boolean,
 		required: true,
@@ -21,7 +15,7 @@ const SettingScheme = new mongoose.Schema({
 	],
 
 	soundFile: {
-		type: String || null,
+		type: String,
 	},
 
 	screenQuestions: [

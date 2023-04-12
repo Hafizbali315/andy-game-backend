@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const authRoutes = require('./routes/auth')
 const settingRoutes = require('./routes/setting')
+const shopItemRoutes = require('./routes/shopItem')
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ connectDB()
 
 app.use(express.json())
 
+app.use('/api', shopItemRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/settings', settingRoutes)
 

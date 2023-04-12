@@ -1,35 +1,32 @@
 const UserSettings = require('../models/Setting')
 
 const updateSettings = async (req, res) => {
-	const userId = req.body.userId
-	try {
-		let settings = await UserSettings.findOne({ userId })
+	const { avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit } = req.body
+	console.log(avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit)
 
-		console.log(req.file)
+	try {
+		let settings = await UserSettings.findOne({})
 
 		if (settings) {
-			;(settings.avatarToggler = req.body.avatarToggler || false),
-				(settings.instructionMessages = JSON.parse(req.body.instructionMessages) || []),
-				(settings.soundFile = req.file.filename || null),
-				(settings.screenQuestions = JSON.parse(req.body.screenQuestions) || []),
-				(settings.coinEarnings = parseInt(req.body.coinEarnings) || 0),
-				(settings.playLimit = parseInt(req.body.gamePlays) || 0)
-
-			await settings.save()
-			res.json(settings)
+			settings.avatarToggler = avatarToggler
+			settings.instructionMessages = JSON.parse(instructionMessages)
+			settings.soundFile = soundFile
+			settings.screenQuestions = JSON.parse(screenQuestions)
+			settings.coinEarnings = parseInt(coinEarnings)
+			settings.playLimit = parseInt(playLimit)
 		} else {
-			const settings = new UserSettings({
-				userId: userId,
-				avatarToggler: req.body.avatarToggler || false,
-				instructionMessages: JSON.parse(req.body.instructionMessages) || [],
-				soundFile: req.file.filename || null,
-				screenQuestions: JSON.parse(req.body.screenQuestions) || [],
-				coinEarnings: parseInt(req.body.coinEarnings) || 0,
-				playLimit: parseInt(req.body.gamePlays) || 0,
+			settings = new UserSettings({
+				avatarToggler: avatarToggler,
+				instructionMessages: JSON.parse(instructionMessages),
+				soundFile: soundFile,
+				screenQuestions: JSON.parse(screenQuestions),
+				coinEarnings: parseInt(coinEarnings),
+				playLimit: parseInt(playLimit),
 			})
-			await settings.save()
-			res.status(201).send(settings)
 		}
+
+		await settings.save()
+		res.status(201).send(settings)
 	} catch (err) {
 		res.status(400).send(err)
 		console.log('error', err)
