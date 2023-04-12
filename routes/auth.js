@@ -9,7 +9,6 @@ router.post('/signup', register)
 
 // @route   POST api/auth/login
 // @desc    Login a user
-// @access  Public
 router.post('/login', login)
 
 module.exports = router
