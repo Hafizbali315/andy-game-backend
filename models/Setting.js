@@ -34,6 +34,12 @@ const SettingScheme = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
+	screenUrls: {
+		url1: { type: String },
+		url2: { type: String },
+		url3: { type: String },
+		url4: { type: String },
+	},
 })
 
 module.exports = mongoose.model('setting', SettingScheme)

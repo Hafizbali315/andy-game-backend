@@ -1,8 +1,8 @@
 const UserSettings = require('../models/Setting')
 
 const updateSettings = async (req, res) => {
-	const { avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit } = req.body
-	console.log(avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit)
+	const { avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit, screenUrls } = req.body
+	console.log(avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit, screenUrls)
 
 	try {
 		let settings = await UserSettings.findOne({})
@@ -14,6 +14,7 @@ const updateSettings = async (req, res) => {
 			settings.screenQuestions = JSON.parse(screenQuestions)
 			settings.coinEarnings = parseInt(coinEarnings)
 			settings.playLimit = parseInt(playLimit)
+			settings.screenUrls = JSON.parse(screenUrls)
 		} else {
 			settings = new UserSettings({
 				avatarToggler: avatarToggler,
@@ -22,6 +23,7 @@ const updateSettings = async (req, res) => {
 				screenQuestions: JSON.parse(screenQuestions),
 				coinEarnings: parseInt(coinEarnings),
 				playLimit: parseInt(playLimit),
+				screenUrls: JSON.parse(screenUrls),
 			})
 		}
 
