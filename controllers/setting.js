@@ -1,8 +1,8 @@
 const UserSettings = require('../models/Setting')
 
 const updateSettings = async (req, res) => {
-	const { avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit, screenUrls } = req.body
-	console.log(avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit, screenUrls)
+	const { avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit, screenUrls, date } = req.body
+	console.log(avatarToggler, instructionMessages, soundFile, screenQuestions, coinEarnings, playLimit, screenUrls, date)
 
 	try {
 		let settings = await UserSettings.findOne({})
@@ -15,6 +15,7 @@ const updateSettings = async (req, res) => {
 			settings.coinEarnings = parseInt(coinEarnings)
 			settings.playLimit = parseInt(playLimit)
 			settings.screenUrls = JSON.parse(screenUrls)
+			settings.date = date
 		} else {
 			settings = new UserSettings({
 				avatarToggler: avatarToggler,
@@ -24,6 +25,7 @@ const updateSettings = async (req, res) => {
 				coinEarnings: parseInt(coinEarnings),
 				playLimit: parseInt(playLimit),
 				screenUrls: JSON.parse(screenUrls),
+				date: date,
 			})
 		}
 
@@ -37,10 +39,11 @@ const updateSettings = async (req, res) => {
 
 const getSettings = async (req, res) => {
 	try {
-		const settings = await UserSettings.findOne(req.body.userId)
+		const settings = await UserSettings.findOne()
 		if (!settings) {
 			return res.status(404).send('No settings found!')
 		}
+
 		res.status(200).send(settings)
 	} catch (err) {
 		res.status(500).send(err)

@@ -28,7 +28,7 @@ app.use(express.json())
 
 app.use('/api', shopItemRoutes)
 app.use('/api/auth', authRoutes)
-app.use('/api/settings', settingRoutes)
+app.use('/api', settingRoutes)
 
 const PORT = process.env.PORT || 5000
 

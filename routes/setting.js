@@ -3,8 +3,8 @@ const router = express.Router()
 
 const { getSettings, updateSettings } = require('../controllers/setting')
 
-router.post('/user-settings', updateSettings)
+router.post('/settings', updateSettings)
 
-router.post('/user-settings/:userId', getSettings)
+router.get('/settings', getSettings)
 
 module.exports = router

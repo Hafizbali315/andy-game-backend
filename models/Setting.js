@@ -40,6 +40,9 @@ const SettingScheme = new mongoose.Schema({
 		url3: { type: String },
 		url4: { type: String },
 	},
+	date: {
+		type: String,
+	},
 })
 
 module.exports = mongoose.model('setting', SettingScheme)
